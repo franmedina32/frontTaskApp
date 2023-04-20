@@ -1,5 +1,6 @@
 export const endpoints = {
-    createUser: "localHost:8080/user/create",
+    createUser: "http://localHost:8080/user/create",
+    loginUser: "http://localHost:8080/user/login",
     deleteUserId: "localHost:8080/user/delete/",
     getUserId: "localHost:8080/user",
     listUsers: "localHost:8080/user/list",

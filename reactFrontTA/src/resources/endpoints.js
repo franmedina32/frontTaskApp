@@ -1,6 +1,7 @@
 export const endpoints = {
     createUser: "http://localHost:8080/user/create",
     loginUser: "http://localHost:8080/user/login",
+    getRoomsByUserName: "http://localHost:8080/room/userRooms",
     deleteUserId: "localHost:8080/user/delete/",
     getUserId: "localHost:8080/user",
     listUsers: "localHost:8080/user/list",

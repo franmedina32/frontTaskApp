@@ -37,7 +37,7 @@ const Login = () => {
 
   return (
     <div>
-        { val ? (<Rooms/>) : (
+        { val ? (<Rooms props = {userData}/>) : (
         <div>
             <h1>LOGIN TO TASK APP ORGANIZER</h1>
             <form>

@@ -4,7 +4,7 @@ export const endpoints = {
     getRoomsByUserName: "http://localHost:8080/room/userRooms",
     deleteUserId: "localHost:8080/user/delete/",
     getUserId: "localHost:8080/user",
-    listUsers: "localHost:8080/user/list",
+    listUsers: "http://localHost:8080/user/list",
     createTask: "localHost:8080/task/new",
     getTaskId: "localHost:8080/task/",
     listTasks: "localHost:8080/task/list",

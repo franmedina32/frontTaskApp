@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { endpoints } from '../resources/endpoints'
 import Roomname from './Roomname'
+import NewRoom from './NewRoom'
 
 const Rooms = (userData) => {
 
@@ -45,10 +46,18 @@ const Rooms = (userData) => {
         setRoomSelected(roomName)
     }
 
+    const [newRoomVal, setNewRoomVal] = useState(false)
+
+    const handleNewRoomClick = (e) => {
+        e.preventDefault()
+        setNewRoomVal(true)
+    }
   return (
     <div>
-        { roomSelected ? (<Roomname props = {roomSelected}/>) : (
-        <div>
+        { 
+        roomSelected ? (<Roomname props = {roomSelected}/>) : 
+        newRoomVal ? (<NewRoom/>) : 
+        (<div>
             <div id='roomsList'>
                 <h3 onClick={handleRoomsSearch}>CURRENT ROOMS ▼</h3>
                 <ul>
@@ -60,7 +69,7 @@ const Rooms = (userData) => {
                 </ul>
             </div>
             <div>
-                <button>＋</button>
+                <button onClick={handleNewRoomClick}>＋</button>
                 <label>NEW ROOM</label>
             </div>
         </div>)}

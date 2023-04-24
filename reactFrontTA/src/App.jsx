@@ -7,6 +7,7 @@ import Rooms from './components/Rooms'
 import Signup from './components/Signup'
 import Task from './components/Task'
 import User from './components/User'
+import NewRoom from './components/NewRoom'
 
 function App() {
   
@@ -21,6 +22,7 @@ function App() {
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/task' element={<Task/>}/>
         <Route path='/user' element={<User/>}/>
+        <Route path='/newRoom' element={<NewRoom/>}/>
       </Routes>
     </div>
   )

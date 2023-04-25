@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { endpoints } from '../resources/endpoints'
+import Roomname from './Roomname'
 const NewRoom = () => {
     const [userList, setUserList] = useState([])
     const [userInputs, setUserInputs] = useState([])
     const [roomName, setRoomName] = useState("")
     const[roomSetting, setRoomSettings] = useState({})
+    const[val, setVal] = useState(false)
 
     useEffect(()=>{
         fetch(endpoints.listUsers)
@@ -29,31 +31,49 @@ const NewRoom = () => {
             userOptions.appendChild(label)
         });
     }
+    //setUserInputs(userInputs => [{...userInputs}, parseInt(user.id)])
+
+    const handleRoomSet = (e) =>{
+        e.preventDefault()
+        const selectedUsers = (Array.from(document.querySelectorAll('input[type="checkbox"]:checked')))
+        selectedUsers.map(user => {
+            const idU = parseInt(user.id)
+            const iterUser  = {
+                id: idU
+            }
+            setUserInputs(userInputs => [...userInputs, iterUser])
+        })
+    }
+
+    useEffect(()=>{
+        setRoomSettings({
+            name: roomName,
+            users: userInputs
+        })
+    },[roomName, userInputs])
 
     const handleRoomCreation = (e) => {
         e.preventDefault()
-        const selectedUsers = (Array.from(document.querySelectorAll('input[type="checkbox"]:checked')))
-        selectedUsers.map(user => {setUserInputs(userInputs => [...userInputs, parseInt(user.id)])})
-        setRoomSettings({
-            name: roomName,
-            users: [
-                {}
-            ]
-        })
+        console.log(roomSetting)
         fetch(endpoints.createRoom, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify()
+                body: JSON.stringify(roomSetting)
             })
-         .then(res => res.json())
-         .then(data => console.log(data))
+         .then(res => {
+            res.json()
+            setVal(res.ok)
+        })
+         .then(data => {console.log(data)})
+
     } 
 
 
   return (
     <div>
+        { val ? <Roomname/> : 
         <div>
             <form>
                 <h1>NEW ROOM</h1>
@@ -65,12 +85,15 @@ const NewRoom = () => {
                     <label>add user</label>
                     <button  onClick={handleSelectClick}>＋</button>
                     <div id='userOptions'></div>
+                    <div>
+                        <button onClick={handleRoomSet}>set room</button>
+                    </div>
                 </div>
                 <div>
                     <button onClick={handleRoomCreation}>CREATE ROOM</button>
                 </div>
             </form>
-        </div>
+        </div>}
     </div>
   )
 }

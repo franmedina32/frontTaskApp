@@ -55,7 +55,7 @@ const Rooms = (userData) => {
   return (
     <div>
         { 
-        roomSelected ? (<Roomname props = {roomSelected}/>) : 
+        roomSelected ? (<Roomname roomName = {roomSelected}/>) : 
         newRoomVal ? (<NewRoom/>) : 
         (<div>
             <div id='roomsList'>
@@ -63,7 +63,7 @@ const Rooms = (userData) => {
                 <ul>
                     {roomsNames && roomsNames.map(roomName => (
                         <li key={roomName}>
-                            <a href="#" onClick={() => handleRoomClick(roomName)}>{roomName}</a>
+                            <p onClick={() => handleRoomClick(roomName)}>{roomName}</p>
                         </li>
                     ))}
                 </ul>

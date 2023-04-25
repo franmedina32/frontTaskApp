@@ -14,7 +14,7 @@ export const endpoints = {
     setTaskDone: "localHost:8080/task/taskDone/",
     createRoom: "http://localHost:8080/room/new",
     getRoomId: "localHost:8080/room/id/",
-    getRoomName: "localHost:8080/room/name/",
+    getRoomName: "http://localHost:8080/room/name/",
     deleteRoomId: "localHost:8080/room/delete/",
     modifyRoom: "localHost:8080/room/modify",
     listRooms: "localHost:8080/room/listRooms",

@@ -73,7 +73,7 @@ const NewRoom = () => {
 
   return (
     <div>
-        { val ? <Roomname/> : 
+        { val ? <Roomname roomName={roomName}/> : 
         <div>
             <form>
                 <h1>NEW ROOM</h1>

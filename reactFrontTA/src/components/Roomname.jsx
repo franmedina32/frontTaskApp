@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { endpoints } from '../resources/endpoints'
-import UserTasks from './UserTasks'
+import NewTask from './NewTask'
 
 
 
@@ -8,6 +8,7 @@ const Roomname = ({roomName}) => {
 
   const url = endpoints.getRoomName+roomName
   const [roomData, setRoomData] = useState()
+  const [newT, setNewT] = useState(false)
   
   useEffect(()=>{
     fetch(url)
@@ -18,27 +19,45 @@ const Roomname = ({roomName}) => {
   useEffect(()=>{
     if(roomData!=undefined){
       const contDiv = document.querySelector('#room')
-      contDiv.innerHTML = ''
+      contDiv.innerHTML = " "
       roomData.users.forEach(userIter => {
         const uName = document.createElement('h3')
         const uScore = document.createElement('h3')
-        const uTasks = document.createElement('p')
-        //const uTasks = <UserTasks id={userIter.id}/>
+        const uTasks = document.createElement('div')
         uName.innerHTML = `${userIter.name}`
         uScore.innerHTML = `score: ${userIter.score}`
-        uTasks.innerHTML = 'user tasks →'
-        uTasks.setAttribute('id', `${userIter.id}`)
+        if (userIter.tasks[0] != undefined){
+          userIter.tasks.forEach(task => {
+            const item = document.createElement('li')
+            item.innerHTML = `task: ${task.name} state: ${task.state}`
+            uTasks.appendChild(item)
+          })} else {
+          const message = document.createElement('p')
+          message.innerHTML = `no tasks assigned to ${userIter.name}`
+          uTasks.appendChild(message)
+        }
         contDiv.appendChild(uName)
         contDiv.appendChild(uScore)
-        contDiv.appendChild(uTasks)
+        contDiv.appendChild(uTasks) 
       });
     }
   })
 
+  const handleNewTask = (e) => {
+    e.preventDefault()
+    setNewT(true)
+    setRoomData(undefined)
+  }
+
   return (
-    <div>
-      <h1>room: {roomName}</h1>
-      <div id='room'></div>
+    <div>{ newT ? <NewTask/> : 
+      <div>
+        <h1>room: {roomName}</h1>
+        <div id='room'></div>
+        <div>
+          <button onClick={handleNewTask}>new task</button>
+        </div>
+      </div>}
     </div>
   )
 }

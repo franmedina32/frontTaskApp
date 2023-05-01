@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { endpoints } from '../resources/endpoints'
 import Roomname from './Roomname'
 const NewRoom = () => {
-    const [userList, setUserList] = useState([])
+    /*const [userList, setUserList] = useState([])
     const [userInputs, setUserInputs] = useState([])
     const [roomName, setRoomName] = useState("")
     const[roomSetting, setRoomSettings] = useState({})
@@ -68,12 +68,12 @@ const NewRoom = () => {
         })
          .then(data => {console.log(data)})
 
-    } 
+    } */
 
 
   return (
     <div>
-        { val ? <Roomname roomName={roomName}/> : 
+        {/* val ? <Roomname roomName={roomName}/> : 
         <div>
             <form>
                 <h1>NEW ROOM</h1>
@@ -93,7 +93,8 @@ const NewRoom = () => {
                     <button onClick={handleRoomCreation}>CREATE ROOM</button>
                 </div>
             </form>
-        </div>}
+  </div>*/}
+  <h1>new room</h1>
     </div>
   )
 }

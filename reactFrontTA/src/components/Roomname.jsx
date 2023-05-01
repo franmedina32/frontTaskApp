@@ -22,6 +22,7 @@ const Roomname = ({roomName}) => {
       contDiv.innerHTML = " "
       roomData.users.forEach(userIter => {
         const uName = document.createElement('h3')
+        uName.setAttribute('id',`${userIter.name}`)
         const uScore = document.createElement('h3')
         const uTasks = document.createElement('div')
         uName.innerHTML = `${userIter.name}`
@@ -29,7 +30,7 @@ const Roomname = ({roomName}) => {
         if (userIter.tasks[0] != undefined){
           userIter.tasks.forEach(task => {
             const item = document.createElement('li')
-            item.innerHTML = `task: ${task.name} state: ${task.state}`
+            item.innerHTML = `task: ${task.name} state: ${task.taskState}`
             uTasks.appendChild(item)
           })} else {
           const message = document.createElement('p')
@@ -38,9 +39,12 @@ const Roomname = ({roomName}) => {
         }
         contDiv.appendChild(uName)
         contDiv.appendChild(uScore)
-        contDiv.appendChild(uTasks) 
+        contDiv.appendChild(uTasks)
+
       });
+
     }
+
   })
 
   const handleNewTask = (e) => {
@@ -50,7 +54,7 @@ const Roomname = ({roomName}) => {
   }
 
   return (
-    <div>{ newT ? <NewTask/> : 
+    <div>{ newT ? <NewTask roomBackName={roomName}/> : 
       <div>
         <h1>room: {roomName}</h1>
         <div id='room'></div>

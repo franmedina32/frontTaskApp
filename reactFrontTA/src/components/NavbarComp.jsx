@@ -15,7 +15,7 @@ const NavbarComp = () => {
     <>
         <Navbar bg="light" expand="lg">
           <Container>
-            <Navbar.Brand href="#home">TASK APP</Navbar.Brand>
+            <Navbar.Brand as={Link} to="/">TASK APP</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
@@ -29,7 +29,7 @@ const NavbarComp = () => {
                 </NavDropdown>
                 <NavDropdown title="TASKS" id="basic-nav-dropdown">
                   <NavDropdown.Item as={Link} to="/newTask">New Task</NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/task">Find Task</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/findtask">Find Task</NavDropdown.Item>
                 </NavDropdown>
               </Nav>
             </Navbar.Collapse>

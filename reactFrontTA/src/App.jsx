@@ -1,8 +1,7 @@
 import { Route, Routes, Outlet } from 'react-router-dom'
-import './App.css'
 import NewTask from './components/NewTask'
 import Roomname from './components/Roomname'
-import Task from './components/Task'
+import FindTask from './components/FindTask'
 import User from './components/User'
 import NewRoom from './components/NewRoom'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -20,7 +19,7 @@ function App() {
             <Route path='/' element={<Home></Home>}/>
             <Route path='/newTask' element={<NewTask/>}/>
             <Route path='/RoomName' element={<Roomname/>}/>
-            <Route path='/task' element={<Task/>}/>
+            <Route path='/findtask' element={<FindTask/>}/>
             <Route path='/user' element={<User/>}/>
             <Route path='/newRoom' element={<NewRoom/>}/>
             <Route path='/newUser' element={<NewUser/>}/>

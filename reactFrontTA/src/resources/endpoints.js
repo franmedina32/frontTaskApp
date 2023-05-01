@@ -6,7 +6,7 @@ export const endpoints = {
     getUserId: "http://localHost:8080/user",
     listUsers: "http://localHost:8080/user/list",
     createTask: "http://localHost:8080/task/new",
-    getTaskId: "localHost:8080/task/",
+    getTaskId: "http://localHost:8080/task/",
     listTasks: "localHost:8080/task/list",
     deleteTask: "localHost:8080/task/delete/",
     setTaskResp: "localHost:8080/task/setResponsible",
@@ -19,6 +19,7 @@ export const endpoints = {
     modifyRoom: "localHost:8080/room/modify",
     listRooms: "localHost:8080/room/listRooms",
     addUserToRoom: "localHost:8080/room/addUser",
-    getUserByName: "http://localHost:8080/user/name"
+    getUserByName: "http://localHost:8080/user/name", 
+    getTaskByName: "http://localHost:8080/task/name"
 }
 

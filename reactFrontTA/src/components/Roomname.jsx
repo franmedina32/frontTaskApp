@@ -1,67 +1,70 @@
 import React, { useEffect, useState } from 'react'
 import { endpoints } from '../resources/endpoints'
-import NewTask from './NewTask'
+import Task from './Task'
 
-
-
-const Roomname = ({roomName}) => {
-
-  const url = endpoints.getRoomName+roomName
-  const [roomData, setRoomData] = useState()
-  const [newT, setNewT] = useState(false)
-  
-  useEffect(()=>{
-    fetch(url)
-     .then(res => res.json())
-     .then(data => {setRoomData(data)})
-  },[])
-
-  useEffect(()=>{
-    if(roomData!=undefined){
-      const contDiv = document.querySelector('#room')
-      contDiv.innerHTML = " "
-      roomData.users.forEach(userIter => {
-        const uName = document.createElement('h3')
-        uName.setAttribute('id',`${userIter.name}`)
-        const uScore = document.createElement('h3')
-        const uTasks = document.createElement('div')
-        uName.innerHTML = `${userIter.name}`
-        uScore.innerHTML = `score: ${userIter.score}`
-        if (userIter.tasks[0] != undefined){
-          userIter.tasks.forEach(task => {
-            const item = document.createElement('li')
-            item.innerHTML = `task: ${task.name} state: ${task.taskState}`
-            uTasks.appendChild(item)
-          })} else {
-          const message = document.createElement('p')
-          message.innerHTML = `no tasks assigned to ${userIter.name}`
-          uTasks.appendChild(message)
-        }
-        contDiv.appendChild(uName)
-        contDiv.appendChild(uScore)
-        contDiv.appendChild(uTasks)
-
-      });
-
-    }
-
-  })
-
-  const handleNewTask = (e) => {
+const Roomname = () => {
+  const[searchName, setSearchName] = useState()
+  const[roomData, setRoomData] = useState(false)
+  const[taskIds, setTaskIds] = useState(false)
+  const handleSearchClick = (e) => {
     e.preventDefault()
-    setNewT(true)
-    setRoomData(undefined)
+    fetch(endpoints.getRoomName+searchName)
+     .then(res => res.json())
+     .then(data => setRoomData(data))
+     .catch(err => console.log(err))
   }
 
+  useEffect(()=>{
+    const userList = document.querySelector('#usersList')
+    if(userList != null) {
+      roomData.users.forEach(user => {
+        const userDiv = document.createElement('div')
+        const userNameScore = document.createElement('h4')
+        userNameScore.innerHTML = `${user.name} - score: ${user.score}`
+        userDiv.appendChild(userNameScore)
+        userList.appendChild(userDiv)
+      })
+    const taskIds = roomData.users.flatMap((user) => user.tasks.map((task) => task.id))
+    setTaskIds(taskIds)
+    }
+    else {
+      console.log("data not retrieved")
+    }
+  },[roomData])
+
+  /*useEffect(()=>{
+    const tasksList = document.querySelector('#tasksList')
+    roomData.users.forEach(user => {
+      user.tasks.forEach(task => setTaskIds([...taskIds, task.id]))
+    })
+  },[roomData])*/
+
   return (
-    <div>{ newT ? <NewTask roomBackName={roomName}/> : 
+    <div>
+      <form action="submit">
+        <input type='text' placeholder='search room by name' onChange={(e)=> {setSearchName(e.target.value)}}></input>
+        <button onClick={handleSearchClick}>🔍</button>
+      </form>
+      {roomData ? 
       <div>
-        <h1>room: {roomName}</h1>
-        <div id='room'></div>
+        <h1>{roomData.name}</h1>
         <div>
-          <button onClick={handleNewTask}>new task</button>
+          <h3>users</h3>
+          <ul id='usersList'></ul>
         </div>
-      </div>}
+      </div> 
+      : <p>search...</p>}
+      {roomData ? 
+      <div>
+        <h3>tasks</h3>
+          <div id='tasksList'>
+            {taskIds ? taskIds.map(id => <Task id={id}/>) : 
+            <p>loading each taska</p>
+            }
+          </div>
+      </div>
+      : <p>loading tasks...</p>
+    }
     </div>
   )
 }
